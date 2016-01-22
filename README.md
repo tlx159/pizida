@@ -1,2 +1,1 @@
-# pizida
-my blog
+# pizida.com
