@@ -1,15 +1,35 @@
 ---
 layout: page
-title: About
+title: 关于
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
+*既然来到这个页面，那说明我们很有缘*
+ 
+# 语言
+国语、粤语、简单的英语、还有世界上最好的语言
 
-You can find the source code for the Jekyll new theme at:
-{% include icon-github.html username="jglovier" %} /
-[jekyll-new](https://github.com/jglovier/jekyll-new)
+# 常用工具
+`netbeans`,`vim`,`iTerm`,`mac`...
 
-You can find the source code for Jekyll at
-{% include icon-github.html username="jekyll" %} /
-[jekyll](https://github.com/jekyll/jekyll)
+
+# 开源项目
+先挖个坑，等我有空来填...
+
+# 地区
+>  1979年，那是一个春天。有一位老人在中国的南海边画了一个圈
+
+# 颜值 
+据说还可以*（曾经靠颜值吃过饭）*
+
+
+# 喜欢的食物
+无鱼不欢
+
+
+# 志向
+> 改变不了世界，但希望自己不要被世界改变
+
+
+
+
