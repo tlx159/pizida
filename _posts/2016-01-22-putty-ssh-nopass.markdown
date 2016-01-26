@@ -32,18 +32,19 @@ categories: jekyll update
 
 .目录和..目录都为700,authorized_keys 文件为600
 
+![图片1](http://7xqfiw.com1.z0.glb.clouddn.com/%E5%9B%BE%E7%89%871.png)
 
 3.本地导入私钥
 
 将第一步生成的私钥`id_rsa`复制到本地
 
-使用puttygen.exe 制作private.ppk
+使用puttygen.exe 制作private.ppk (文章最后又下载地址)
 
 打开puttygen.exe，点击file，Load private key
 
-
-
 将本机上的id_rsa导入，
+
+![导入id_rsa](http://7xqfiw.com1.z0.glb.clouddn.com/%E5%9B%BE%E7%89%873.png)
 
 
 点击，Save private key
@@ -57,5 +58,19 @@ categories: jekyll update
 
 然后 connect-> SSH->Auth 找到右测导入刚才我们生成的private.ppk
 
+![生成private.ppk](http://7xqfiw.com1.z0.glb.clouddn.com/%E5%9B%BE%E7%89%874.png)
 
 
+# 注意
+
+切记现在不要直接open，因为此刻没有保存这个设置，如果直接open，只会打开当前有效。下次打开还得输入密码。
+
+正确的做法是回到session设置部分，save当前设置。然后再打开。
+
+以后都可以正常的通过公私秘钥对登陆了。
+
+
+# 需要下载的工具
+[putty下载](http://rj.baidu.com/soft/detail/15699.html?ald "putty下载地址")
+ 
+[puttygen工具下载](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html "puttygen工具")
