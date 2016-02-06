@@ -15,5 +15,8 @@ url: "http://yourdomain.com" # the base hostname & protocol for your site
 twitter_username: engine-go
 github_username:  engine-go
 
+#post-link
+permalink: /:categories/:title.html
+
 # Build settings
 markdown: kramdown
