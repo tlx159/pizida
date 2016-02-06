@@ -2,7 +2,7 @@
 layout: post
 title:  "实现putty的SSH无密码自动登陆"
 date:   2016-01-22 14:21:39 +0800
-categories: jekyll update
+categories: jekyll
 ---
 
 
