@@ -1,8 +1,12 @@
 ---
-layout: post
-title:  "抢红包超卖现象的出现以及解决方案"
-date:   2016-01-22 14:21:39 +0800
-categories: jekyll
+layout:     post
+title:      "Redis高并发产生超卖现象"
+subtitle:   "高并发为什么带来超卖？什么是超卖现象？"
+date:       2015-01-29 12:00:00
+author:     "pizida"
+header-img: "img/post-bg-2015.jpg"
+tags:
+    - 生活
 ---
 
 
