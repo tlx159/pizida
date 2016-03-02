@@ -29,3 +29,6 @@ task :new do
 	exec "vi #{@post_name}"
 end
 
+
+
+
