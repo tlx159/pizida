@@ -108,14 +108,104 @@ categories: jekyll update
 
 `layout`表示使用的是post布局，`title`是博客标题，`date`是自动生成的日期，`categories`是该文章生成html文件后存放的目录，可以去_site/jekyll/update下找到对应日期下面的html文档。当然你也可以只设置jekyll单一的目录，甚至是更多级别的目录，用空格分开即可。头信息设置完成后就可以书写正文了。
 
-本地搭建jekyll和写博文大致就是如此，有更多疑问可到官网<a href="https://jekyllrb.com/">https://jekyllrb.com/</a>或中文镜像站<a href="http://jekyllcn.com/">http://jekyllcn.com/</a>查阅资料。
+如果每次都输入这些头信息，还要去整理格式，那么一定很烦躁，这种重复性的东西我们就把它自动化，通过Rakefile去解决，它类似shell这样的脚本，可以使用交互模式。以下是我的Rakefile,可以复制后命名为Rakefile，放在站点根目录直接使用，也可以修改为适合自己的Rakefile：
 
+```ruby
+task :default => :new
+
+require 'fileutils'
+
+desc "创建新 post"
+task :new do
+  puts "请输入要创建的 post URL："
+	@url = STDIN.gets.chomp
+	puts "请输入 post 标题："
+	@name = STDIN.gets.chomp
+	puts "请输入 post 子标题："
+	@subtitle = STDIN.gets.chomp
+	puts "请输入 post 分类，以空格分隔："
+	@categories = STDIN.gets.chomp
+	puts "请输入 post 标签："
+	@tag = STDIN.gets.chomp
+	@slug = "#{@url}"
+	@slug = @slug.downcase.strip.gsub(' ', '-')
+	@date = Time.now.strftime("%F")
+	@post_name = "_posts/#{@date}-#{@slug}.md"
+	if File.exist?(@post_name)
+			abort("文件名已经存在！创建失败")
+	end
+	FileUtils.touch(@post_name)
+	open(@post_name, 'a') do |file|
+			file.puts "---"
+			file.puts "layout: post"
+			file.puts "title: #{@name}"
+			file.puts "subtitle: #{@subtitle}"
+			file.puts "author: pizida"
+			file.puts "date: #{Time.now}"
+			file.puts "categories: #{@categories}"
+			file.puts "tag: #{@tag}"
+			file.puts "---"
+	end
+	exec "vi #{@post_name}"
+end
+```
+如何使用Rake，输入一下命令：
+
+```ruby
+rake new
+```
+rake会启动交互模式，让你依次输入title，subtitle，author，categories，tag等信息，并为你创建好具有头信息的markdown文件。如下一样:
+
+```shell
+请输入要创建的 post URL：
+testurl
+请输入 post 标题：
+testpost
+请输入 post 子标题：
+subtitle    
+请输入 post 分类，以空格分隔：
+jekyll
+请输入 post 标签：
+技术
+```
+我们查看`_post`目录，发现已经有一篇**2016-03-05-testurl.md**文章，打开看下
+
+```ruby
+---
+layout: post
+title: testpost
+subtitle: subtitle
+author: pizida
+date: 2016-03-05 07:31:27 +0800
+categories: jekyll
+tag: 技术
+---
+```
+已经为我们创建好头信息了。
+
+本地搭建jekyll和写博文大致就是如此，有更多疑问可到官网<a href="https://jekyllrb.com/">https://jekyllrb.com/</a>或中文镜像站<a href="http://jekyllcn.com/">http://jekyllcn.com/</a>查阅资料。
 ***
 
-##利用gitHub搭建项目
+## 利用gitHub搭建项目
 
+### 创建我们的仓库
+我们repository name设置为testblog，选择Publi仓库类型，勾选上初始化README文件，这个文件稍后需要用到。
+<img src="http://7xqfiw.com1.z0.glb.clouddn.com/blog_3924717F-AF28-47BA-83C5-F4722090B464.png" alt="创建git仓库"/>
 
+### 为仓库创建Github Pages
+入库仓库后，选择**setting**
+<img src="http://7xqfiw.com1.z0.glb.clouddn.com/blog_DF969E91-9438-4F57-BA3F-C09EC5F0E3D6.png" alt="创建Github Pages"/>
 
+点击**Launch automatic page generator**
+<img src="http://7xqfiw.com1.z0.glb.clouddn.com/blog_3F514A8A-3464-47B5-89AE-61FF6BC665B8.png" alt="生成pages"/>
+
+然后编辑下标题和描述，选择模板，点击**Publish**
+<img src="http://7xqfiw.com1.z0.glb.clouddn.com/blog_1.png"/>
+
+如此，我们已经可以通过浏览器输入 http://username.github.io/testblog访问博客主页，注意**username**为你自己的账户名。
+
+### 将本地jekyll代码部署到Github上的仓库
+前面我们已经详细地说明如何搭建Jekyll，我们可以在本地开发测试，推送代码到仓库，发布到线上。
 
 
 
