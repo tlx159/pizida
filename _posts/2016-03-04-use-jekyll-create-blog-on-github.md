@@ -14,10 +14,10 @@ tag:
 
 
 ## 前言
-  博客从wordpres迁移到Jekyll上来了，整个过程还是很顺利的。Jekyll是什么？它是一个简单静态博客生成工具，为什么是静态，因为它是不需要数据库的，直接编写通过<a href="http://wowubuntu.com/markdown/">markdown</a>编写静态文件，生成Html页面，它的优点是提升了页面的响应速度，并且让博主可以只专注于写文章，不用再去考虑如何排版（markdown语法很好的解决了排版问题）。那么为什么要迁移到Jekyll呢？不是因为跟风，也不是为了提高自我，完全就是瞎折腾！
+  博客从wordpres迁移到Jekyll上来了，整个过程还是很顺利的。Jekyll是什么？它是一个简单静态博客生成工具，为什么是静态，因为它是不需要数据库的，通过<a href="http://wowubuntu.com/markdown/">markdown</a>编写静态文件，生成Html页面，它的优点是提升了页面的响应速度，并且让博主可以只专注于写文章，不用再去考虑如何排版（markdown语法很好的解决了排版问题）。那么为什么要迁移到Jekyll呢？不是因为跟风，也不是为了提高自我，完全就是瞎折腾！
 
 ## 本地搭建Jekyll
-本次安装是在MacOs或Linux下进行的。
+本次安装可以MacOS或Linux下进行。
 
 ### 使用gem安装Jekyll
 ```ruby
@@ -29,8 +29,8 @@ gem install jekyll
 ### 使用Jekyll创建你的博客站点
 ```ruby
 jekyll new blog  #创建你的站点
-控制台可以看见类似 `New jekyll site installed in /home/user/blog.`的提示
 ```
+控制台可以看见类似 `New jekyll site installed in /home/user/blog.`的提示
 
 ### 开启Jekyll服务
 ```ruby
@@ -79,6 +79,7 @@ cp 2016-03-04-welcome-to-jekyll.markdown 2016-03-04-test.markdown
 ```
 
 然后刷新一下浏览器、发现页面并没有变化.因为我们还没有通过Jekyll build去生成。
+
 ```ruby
 jekyll build
 ```
@@ -94,7 +95,8 @@ jekyll serve build -B
 ```
 **值得注意的是：如果用vagrant虚拟机去安装jekyll，那么启动服务时还需要加上-H参数，指定访问主机号为0.0.0.0，即`jekyll serve build -B -H 0.0.0.0`,否则vagrant下可能启动失败**
 
-再查看首页，发现已经有两篇文章了！
+再查看首页，发现已经有两篇文章了！因为没有更改标题，所以都是一样的。
+<img src="http://7xqfiw.com1.z0.glb.clouddn.com/blog_D8F5893E-CBEB-4F56-A2A8-125929F64B3A.png"/>
 好的，打开复制的 2016-03-04-test.markdown-test.markdown,可以看见开头有如下几个东东。
 
 ```ruby
@@ -106,7 +108,7 @@ categories: jekyll update
 ---
 ```
 
-`layout`表示使用的是post布局，`title`是博客标题，`date`是自动生成的日期，`categories`是该文章生成html文件后存放的目录，可以去_site/jekyll/update下找到对应日期下面的html文档。当然你也可以只设置jekyll单一的目录，甚至是更多级别的目录，用空格分开即可。头信息设置完成后就可以书写正文了。
+`layout`表示使用的是post布局，`title`是文章标题，`date`是自动生成的日期，`categories`是该文章生成html文件后存放的目录，可以去_site/jekyll/update下找到对应日期下面的html文档。当然你也可以只设置jekyll单一的目录，甚至是更多级别的目录，用空格分开即可。头信息设置完成后就可以书写正文了。
 
 如果每次都输入这些头信息，还要去整理格式，那么一定很烦躁，这种重复性的东西我们就把它自动化，通过Rakefile去解决，它类似shell这样的脚本，可以使用交互模式。以下是我的Rakefile,可以复制后命名为Rakefile，放在站点根目录直接使用，也可以修改为适合自己的Rakefile：
 
@@ -184,6 +186,7 @@ tag: 技术
 已经为我们创建好头信息了。
 
 本地搭建jekyll和写博文大致就是如此，有更多疑问可到官网<a href="https://jekyllrb.com/">https://jekyllrb.com/</a>或中文镜像站<a href="http://jekyllcn.com/">http://jekyllcn.com/</a>查阅资料。
+
 ***
 
 ## 使用Github pages服务生成个人博客
