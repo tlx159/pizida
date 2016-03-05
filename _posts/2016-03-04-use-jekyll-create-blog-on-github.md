@@ -186,27 +186,98 @@ tag: 技术
 本地搭建jekyll和写博文大致就是如此，有更多疑问可到官网<a href="https://jekyllrb.com/">https://jekyllrb.com/</a>或中文镜像站<a href="http://jekyllcn.com/">http://jekyllcn.com/</a>查阅资料。
 ***
 
-## 利用gitHub搭建项目
+## 使用Github pages服务生成个人博客
 
 ### 创建我们的仓库
-我们repository name设置为testblog，选择Publi仓库类型，勾选上初始化README文件，这个文件稍后需要用到。
-<img src="http://7xqfiw.com1.z0.glb.clouddn.com/blog_3924717F-AF28-47BA-83C5-F4722090B464.png" alt="创建git仓库"/>
+我们repository name设置为username.github.com(这里的username是指你在Github上的用户名，我的用户名是engine-go,后面的**username**均指的是个人账户，不再做说明)，选择**Public**仓库类型:
+<img src="http://7xqfiw.com1.z0.glb.clouddn.com/blog_C4D37F64-A0AD-4EEB-88A8-36BCB6DED2EA.png" alt="创建git仓库"/>
 
 ### 为仓库创建Github Pages
-入库仓库后，选择**setting**
-<img src="http://7xqfiw.com1.z0.glb.clouddn.com/blog_DF969E91-9438-4F57-BA3F-C09EC5F0E3D6.png" alt="创建Github Pages"/>
+创建仓库后，选择**setting**
+<img src="http://7xqfiw.com1.z0.glb.clouddn.com/blog_123.png" alt="创建Github Pages"/>
 
 点击**Launch automatic page generator**
 <img src="http://7xqfiw.com1.z0.glb.clouddn.com/blog_3F514A8A-3464-47B5-89AE-61FF6BC665B8.png" alt="生成pages"/>
 
-然后编辑下标题和描述，选择模板，点击**Publish**
+然后编辑下标题和描述，任意选择一个模板，点击**Publish**
 <img src="http://7xqfiw.com1.z0.glb.clouddn.com/blog_1.png"/>
 
-如此，我们已经可以通过浏览器输入 http://username.github.io/testblog访问博客主页，注意**username**为你自己的账户名。
+如此，我们已经可以通过浏览器输入 http://username.github.io访问博客主页。那么我就访问engine-go.github.com。
+如下图所示，就是你的博客首页。
+<img src="http://7xqfiw.com1.z0.glb.clouddn.com/blog_FABD47CE-F2EC-4ECA-93C7-18517303F939.png"/>
 
 ### 将本地jekyll代码部署到Github上的仓库
 前面我们已经详细地说明如何搭建Jekyll，我们可以在本地开发测试，推送代码到仓库，发布到线上。
 
+### 克隆仓库到本地
+请确保本地安装了git客户端，克隆你的username.github.com仓库到本地。
 
+```ruby
+git clone https://github.com/username/username.github.com.git
+```
 
+此时你会看见当前存在username.github.com这个目录，我们启动jekyll服务（启动前确保其他目录下没有jekyll服务，可以`ps aux|grep jekyll`查看进程,有的话,用`kill -9 进程号`杀掉）:
 
+```ruby
+cd username.github.com
+jekyll serve -B
+```
+
+现在我们打开<a href="localhost:4000">http://localhost:4000</a>,即可看见我们在Github上创建的主页，理论上和http://username.github.com  访问的应该是一模一样的。
+
+### 拷贝本地的jekyll目录到版本库
+删除username.github.com下面的示例文件(README.md,不要删除，绑定域名会用到):
+
+```ruby
+rm -rf _site index.html params.json  stylesheets
+``` 
+
+拷贝本地blog(这个是前面本地搭建的blog，后续等同，不再说明)下的所有目录及文件到username.github.com
+
+```ruby
+cp -r blog/* username.github.com
+```
+重启服务，就可以在本地看见jekyll的站点页面了。
+
+### 本地Jekyll站点部署到Github Pages上（相当于线上环境）
+
+```ruby
+git add --all			   #添加到暂存区	
+git commit -m "提交jekyll默认页面" #提交到本地仓库
+git push origin master    	   #线上的站点是部署在master下面的
+```
+稍等10分钟左右，Github Pages有一定时间缓存,我们刷新username.github.io看看,已经ok了！
+<img src="http://7xqfiw.com1.z0.glb.clouddn.com/blog_D9ADB28B-F0C7-4ADE-957C-90F9682956CF.png"/>
+现在已经可以在本地blog下写文章，然后通过git推送到远程仓库，大家可以通过http://username.github.io/访问你的站点了
+
+### 为username.github.io绑定个性域名
+写博客的朋友一般都有自己的域名，请根据以下方法设置：
+
+1. 我们要绑定的话需要在username.github.com目录下增加一个CNAME文件。
+在里面添加你的域名，假设为example.com，然后推送CNAME文件到远程仓库:
+
+```ruby
+git add CNAME
+git push origin master
+```
+2. 到域名服务商增加你的CNAME记录。
+添加两条记录，@和www的主机记录，记录类型为CNAME类型，CNAME表示别名记录，该记录可以将多个名字映射到同一台计算机。
+记录值请写**username.github.io.**,值得注意的是`io`后面还有一个圆点，切记。
+<img src="http://7xqfiw.com1.z0.glb.clouddn.com/blog_E1A2BE7C-E031-4379-AC65-57A1570518CF.png"/>
+
+3. 过个几分钟，刷新博客，我的博客域名是pizida.com，就能直接访问了，不截图了。
+
+***
+
+## 总结
+本文介绍了Jekyll本地搭建过程和远程部署Jekyll的流程，我们梳理一下思路，以后可这样开发以及发布到线上：
+
+### 本地开发：
+1. 通过`jekyll serve -B`启动服务，使用Rakefile创建文章，然后用自己喜欢的工具进行写作。
+2. 创作完成，通过`jekyll build`生成页面，本地localhost:4000查看文章。
+
+### 发布线上
+1. 本地确认文章无误，可以通过`git add`,`git commit`,`git push`等git命令推送文章到Github Pages服务器。
+2. 通过绑定的域名，查看线上文章，这个时候大家都能访问了。
+
+有说得不对的地方，请多多指教。
