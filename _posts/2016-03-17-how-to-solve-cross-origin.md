@@ -113,7 +113,8 @@ jsonp.html 代码：
 
 ```js
 var request_url = "http://www.test1.com/test/test1.php";
-``` http://www.test1.com/jsonp.html
+``` 
+* http://www.test1.com/jsonp.html
 * http://www.test1.com/`test`/test1.php
 
 * jsonp.html,test1.php(放在www.test1.com上)
